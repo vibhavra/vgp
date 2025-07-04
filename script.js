@@ -1,0 +1,30 @@
+async function sendMessage() {
+  const input = document.getElementById("input").value;
+  const responseDiv = document.getElementById("response");
+  responseDiv.innerHTML = "Solving... please wait.";
+
+  const result = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer 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"
+    },
+    body: JSON.stringify({
+      model: "mistralai/mistral-7b-instruct",
+      messages: [
+        {
+          role: "system",
+          content: "You are a smart and helpful AI that solves school homework step-by-step for students from class 6 to 12."
+        },
+        {
+          role: "user",
+          content: input
+        }
+      ]
+    })
+  });
+
+  const data = await result.json();
+  const reply = data.choices?.[0]?.message?.content || "Sorry, I couldn't solve that.";
+  responseDiv.innerHTML = reply;
+}
