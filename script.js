@@ -1,3 +1,5 @@
+// script.js
+
 let chatHistory = JSON.parse(localStorage.getItem("chatHistory") || "[]");
 
 function updateHistoryUI() {
@@ -76,4 +78,4 @@ function updateMessage(el, newText) {
   el.textContent = newText;
 }
 
-updateHistoryUI();
+document.addEventListener("DOMContentLoaded", updateHistoryUI);
